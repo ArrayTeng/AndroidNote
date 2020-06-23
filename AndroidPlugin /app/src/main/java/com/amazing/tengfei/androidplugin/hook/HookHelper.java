@@ -7,6 +7,7 @@ import android.util.Log;
 import com.amazing.tengfei.androidplugin.utils.RefInvoke;
 
 import java.lang.reflect.Proxy;
+import java.util.logging.Handler;
 
 /**
  * @author 滕飞
@@ -42,7 +43,6 @@ public class HookHelper {
 
     }
 
-
     public static void hookPackageManager(Context mContext) {
         try {
             Object mCurrentActivityThread = RefInvoke.getStaticFieldObject("android.app.ActivityThread",
@@ -65,6 +65,16 @@ public class HookHelper {
             Log.e(TAG, "hookPackageManager: "+e.getMessage());
         }
 
+
+    }
+
+    public static void attachBaseContext(){
+        Object sCurrentActivityThread = RefInvoke.getStaticFieldObject("android.app.ActivityThread",
+                "sCurrentActivityThread");
+
+        Handler mH = (Handler)RefInvoke.getFieldObject(sCurrentActivityThread,"mH");
+
+        RefInvoke.setFieldObject(mH,"mCallback",new MockClass2(mH));
 
     }
 

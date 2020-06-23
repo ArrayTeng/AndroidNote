@@ -15,6 +15,8 @@ import java.lang.reflect.Proxy;
 
 public class AMSHookHelper {
 
+    public static final String EXTRA_TARGET_INTENT = "Extra_target_intent";
+
     /**
      *  在启动一个Activity的时候把待启动的Activity替换为在清单文件中已经注册的"占坑"Activity
      */

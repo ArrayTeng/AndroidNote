@@ -46,6 +46,7 @@ class MockClass1 implements InvocationHandler {
             ComponentName componentName = new ComponentName(stubPack, StubActivity.class.getName());
             newIntent.setComponent(componentName);
 
+            newIntent.putExtra(AMSHookHelper.EXTRA_TARGET_INTENT,rawIntent);
             args[index] = newIntent;
 
 
