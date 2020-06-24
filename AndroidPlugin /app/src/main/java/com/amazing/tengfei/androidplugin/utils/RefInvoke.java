@@ -12,6 +12,16 @@ import java.lang.reflect.Method;
  */
 @SuppressWarnings("rawtypes")
 public class RefInvoke {
+
+    public static <T> Class<T> createClass(String className){
+        try {
+            return (Class<T>) Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //无参
     public static Object createObject(String className) {
         Class[] pareTypes = new Class[]{};
