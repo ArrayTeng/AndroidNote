@@ -8,6 +8,18 @@ async用于标明函数是一个异步函数，其返回的类型是future类型
 
 await用来等待耗时操作的返回结果，这个操作会阻塞到后面的代码
 
+async和await可以像编写同步代码那样编写异步代码
+
+只有在标记async的函数里才可以使用await，当函数执行到await的时候语句将会暂停知道await后的表达式执行完毕
+
+使用try-catch可以捕捉await语句的错误
+
+async函数里可以多次使用await
+
+async函数返回Future对象，普通返回值将自动包装成Future对象
+
+使用await for 来从Stream里读取序列值，如果想中止可使用break或者return
+
 ```dart
 Future<Response> getHttp() async {
   Response response = await Dio().get("https://www.baidu.com/");
