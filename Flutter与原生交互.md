@@ -79,5 +79,21 @@ compileOptions {
 
 
 
-##### Flutter 与 Native 通信
+##### Flutter 与 Native 通信 
+
+1、Flutter与Android之间的通信
+
+初始化Flutter的时候Native向Dart传递数据
+
+Native发送数据给Dart
+
+Dart发送数据给Native
+
+Dart发送数据给Native，然后Native回传数据给Dart
+
+![Flutter-Dart-Native-Communication](/Users/tengfei/AndroidStudy/AndroidNote/img/Flutter-Dart-Native-Communication.png)
+
+2、在纯flutter项目中集成原生SDK，以神策埋点SDK举例，项目地址 https://github.com/ArrayTeng/Android-Amazing/tree/master/flutter_study/flutter_burying_point
+
+
 
