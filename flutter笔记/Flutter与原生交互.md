@@ -176,8 +176,3 @@ Flutter定义了三种不同类型的Channel：
 这三种类型的类型的Channel都是全双工通信，即A <=> B，Dart可以主动发送消息给platform端，并且platform接收到消息后可以做出回应，同样，platform端可以主动发送消息给Dart端，dart端接收数后返回给platform端。
 
 
-
-##### 在Flutter中集成一个Native SDK
-
-
-
