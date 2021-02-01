@@ -26,11 +26,11 @@ Hypertext Transfer Protocol，超⽂本传输协议，和 HTML (Hypertext Markup
 
 #### 请求报⽂
 
-![](https://img.imgdb.cn/item/6017c0af3ffa7d37b3dd7b45.jpg)
+![请求报文](https://img.imgdb.cn/item/6017c0af3ffa7d37b3dd7b45.jpg)
 
  #### 响应报⽂
 
-![](https://img.imgdb.cn/item/6017c12a3ffa7d37b3dddfd2.jpg)
+![响应报文](https://img.imgdb.cn/item/6017c12a3ffa7d37b3dddfd2.jpg)
 
 #### Status Code 状态码
 
