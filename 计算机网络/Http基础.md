@@ -52,7 +52,7 @@ Hypertext Transfer Protocol，超⽂本传输协议，和 HTML (Hypertext Markup
 
 #### Host 
 
-⽬标主机。注意：不是在⽹络上⽤于寻址的，⽽是在⽬标服务器上⽤于定位⼦服务 器的。
+⽬标主机。注意：不是在⽹络上⽤于寻址的，⽽是在⽬标服务器上⽤于定位⼦服务器的。
 
 #### Content-Type 
 
