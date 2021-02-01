@@ -27,13 +27,13 @@ Hypertext Transfer Protocol，超⽂本传输协议，和 HTML (Hypertext Markup
 #### 请求报⽂
 
 
-![](https://img.imgdb.cn/item/6017c0af3ffa7d37b3dd7b45.jpg)
+![](https://cdn.jsdelivr.net/gh/ArrayTeng/resources/WX20210201-214653@2x.png)
 
 
  #### 响应报⽂
 
 
-![](https://img.imgdb.cn/item/6017c12a3ffa7d37b3dddfd2.jpg)
+![](https://cdn.jsdelivr.net/gh/ArrayTeng/resources/WX20210201-214714@2x.png)
 
 
 #### Status Code 状态码
