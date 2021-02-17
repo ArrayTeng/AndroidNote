@@ -61,7 +61,55 @@ SSL是安全套接层（安全通信协议）在OSI模型中处于会话层，SS
 
 ## TLS1.2连接过程
 
+在 HTTP 协议里，建立连接后，浏览器会立即发送请求报文。但现在是 HTTPS 协议，它需要再用另外一个“握手”过程，在 TCP 上建立安全连接，之后才是收发 HTTP 报文。
 
+![](https://cdn.jsdelivr.net/gh/ArrayTeng/resources/9caba6d4b527052bbe7168ed4013011e.png)
+
+第一阶段：C/S两端共享Client Random、Server Random 和 Server Params信息
+客户端--->服务器：
+客户端的版本号、支持的密码套件，还有一个随机数（Client Random）
+
+服务端--->客户端：
+客户端的版本号、选择的客户端列表的密码套件如：TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、随机数随机数（Server Random）
+
+服务端--->客户端：
+服务端证书（Server Certificate）
+
+
+服务端--->客户端：
+发送Server Key Exchange类型的请求，携带椭圆曲线的公钥（Server Params）用以实现密钥交换算法，另附私钥签名
+
+
+服务端--->客户端：
+发送完毕
+
+
+第二阶段：证书验证
+
+前验条件：客户端证书链逐级验证、证书公钥验证签名，服务端身份验证成功（证书合法）
+
+客户端--->服务端
+发送Client Key Exchange类型的请求，携带椭圆曲线的公钥（Client Params）用以实现秘钥交换算法
+
+
+第三阶段：主密钥生成
+
+客户端、服务端分别使用Client Params、Server Params通过ECDHE算法计算出随机值pre-master，然后用
+Client Random、Server Random 和 Pre-Master三个值作为原材料，用PRF伪随机数函数（利用密码套件的摘要算法再次强化结果
+值maser secert的随机性）计算出主密钥Master Secret，
+
+主密钥并不是会话秘钥，还会再用PRF扩展出更多的密钥，比如客户端发送用的会话密钥（client_write_key）、服务器发送用的会话密钥（server_write_key）
+
+
+客户端--->服务端:
+客户端发一个“Change Cipher Spec”，然后再发一个“Finished”消息，把之前所有发送的数据做个摘要，再加密一下，让服务器做个验证.
+
+服务端--->客户端：
+服务器也是同样的操作，发“Change Cipher Spec”和“Finished”消息，双方都验证加密解密 OK，握手正式结束.
+
+
+
+服务器将证书发送给浏览器
 
 ## 参考资料
 
