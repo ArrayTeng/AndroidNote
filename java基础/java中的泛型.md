@@ -79,7 +79,7 @@ restrict.getClass() == restrictBoolean.getClass();
 
 总结：主要用于安全地写入数据，可以写入X及其子类型。
 
-####java虚拟机是如何实现泛型的
+#### java虚拟机是如何实现泛型的
 
 Java 中的泛型不过是一个语法糖，在编译时还会将实际类型给擦除掉，不过会新增一个 checkcast 指令来做编译时检查，如果类型不匹配就抛出 ClassCastException。
 
