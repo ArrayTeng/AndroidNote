@@ -1,3 +1,5 @@
+# 泛型
+
 适用于多种数据类型执行相同的代码
 
 泛型中的类型在使用时指定，不需要强制类型转换
@@ -111,5 +113,45 @@ Java 中的泛型不过是一个语法糖，在编译时还会将实际类型给
 
 ```java
 Collections.copy(List<? super T> dest, List<? extends T> src);
+```
+
+
+
+# 反射与代理
+
+我们写的每一个类都可以看成一个对象，是java.lang.Class类的对象
+
+**每一个类对应的Class放在哪里？里面都保存了些什么？**
+
+我们写的每一个类都可以看作是一个 Class 类的对象，当写完一个类的java文件编译成class文件的时候，编译器会将这个类对应的class对象放在class文件的末尾，保存了类的元数据信息
+
+**动态代理的实现原理**
+
+调用Proxy的newProxyInstance ，核心代码主要有
+
+final Class<?>[] intfs = interfaces.clone();//获取实现的接口
+
+Class<?> cl = getProxyClass0(loader, intfs);//获取代理类
+
+cons.newInstance(new Object[]{h})//生成代理类的实例
+
+```java
+private static Class<?> getProxyClass0(ClassLoader loader,
+                                       Class<?>... interfaces) {
+   //从缓存中获取代理类，同时生成的操作也在这里
+    return proxyClassCache.get(loader, interfaces);
+}
+```
+
+```java
+Object subKey = Objects.requireNonNull(subKeyFactory.apply(key, parameter));
+
+//执行 ProxyClassFactory 的 apply
+//生成代理类的字节码
+ byte[] proxyClassFile = ProxyGenerator.generateProxyClass(
+                proxyName, interfaces, accessFlags);
+
+//最终生成代理类 
+defineClass0(loader, proxyName,proxyClassFile, 0, proxyClassFile.length);
 ```
 
