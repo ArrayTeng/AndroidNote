@@ -1,3 +1,4 @@
+include ':rxjava'
 include ':multidex'
 include ':app'
 rootProject.name = "AndroidCode"
