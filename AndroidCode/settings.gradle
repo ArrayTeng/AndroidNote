@@ -1,3 +1,4 @@
+include ':test'
 include ':rxjava'
 include ':multidex'
 include ':app'
