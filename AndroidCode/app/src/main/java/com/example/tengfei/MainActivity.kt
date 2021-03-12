@@ -3,6 +3,8 @@ package com.example.tengfei
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.example.tengfei.rxjava.RxJavaTest
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,5 +13,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    fun rxJavaTest(view: View) {
+        val rxJavaTest = RxJavaTest()
+        rxJavaTest.rxJavaTest()
     }
 }

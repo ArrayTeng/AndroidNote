@@ -10,31 +10,26 @@ import io.reactivex.disposables.Disposable;
 public class Test {
 
     void  test(){
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
-                e.
-            }
-        }).subscribe(new Observer<String>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
+       Observable.create(new ObservableOnSubscribe<String>() {
+           public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
 
-            }
+           }
+       }).subscribe(new Observer<String>() {
+           public void onSubscribe(@NonNull Disposable d) {
 
-            @Override
-            public void onNext(@NonNull String s) {
+           }
 
-            }
+           public void onNext(@NonNull String s) {
 
-            @Override
-            public void onError(@NonNull Throwable e) {
+           }
 
-            }
+           public void onError(@NonNull Throwable e) {
 
-            @Override
-            public void onComplete() {
+           }
 
-            }
-        });
+           public void onComplete() {
+
+           }
+       });
     }
 }
