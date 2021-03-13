@@ -5,17 +5,19 @@ package com.example.rxjava;
  */
 public abstract class Observable<T> implements  ObservableSource<T>{
 
-//    public static <T> Observable<T> create(){
-//        return
-//    }
+    //创建被观察者对象
+    public static <T> Observable<T> create(ObservableOnSubscribe<T> source){
+        return new ObservableCreate<T>(source);
+    }
 
 
     @Override
-    public void subscribe(Observable<? super T> observable) {
-
-        subscribeActual(observable);
+    public void subscribe(Observer<? super T> observer) {
+        //ObservableCreate 调用 subscribe 函数绑定观察者，
+        //ObservableCreate 中执行了具体的 subscribeActual 函数
+        subscribeActual(observer);
 
     }
 
-    public abstract void subscribeActual(Observable<? super T> observable);
+    public abstract void subscribeActual(Observer<? super T> observer);
 }
