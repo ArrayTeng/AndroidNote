@@ -3,9 +3,9 @@ package com.example.rxjava;
 /**
  * 具体的观察者对象
  */
-public class ObservableCreate<T> extends Observable<T>{
+public class ObservableCreate<T> extends Observable<T> {
 
-    private ObservableOnSubscribe<T> source;
+    private final ObservableOnSubscribe<T> source;
 
     public ObservableCreate(ObservableOnSubscribe<T> source) {
         this.source = source;
@@ -15,9 +15,9 @@ public class ObservableCreate<T> extends Observable<T>{
     @Override
     public void subscribeActual(Observer<? super T> observer) {
         //创建发送器
-        CreateEmitter<T> emitter = new CreateEmitter<T>(observer);
+        CreateEmitter<T> parent = new CreateEmitter<T>(observer);
         //执行观察者对象的 onSubscribe 方法
-        observer.onSubscribe();
+        observer.onSubscribe(parent);
 
         /*
           这部分的代码对应
@@ -27,15 +27,20 @@ public class ObservableCreate<T> extends Observable<T>{
                      }
                  })
          */
-        source.subscribe(emitter);
+        try {
+            source.subscribe(parent);
+        } catch (Exception e) {
+            parent.onError(e);
+        }
+
     }
 
 
     //创建具体的发送器对象
-    static final class CreateEmitter<T> implements ObservableEmitter<T>{
+    static final class CreateEmitter<T> implements ObservableEmitter<T>, Disposable {
 
         //发射器中持有了观察者对象，发射器执行的操作都会同步调用到观察者对应的函数方法
-        private final  Observer<? super T> observer;
+        private final Observer<? super T> observer;
 
         CreateEmitter(Observer<? super T> observer) {
             this.observer = observer;
@@ -54,6 +59,16 @@ public class ObservableCreate<T> extends Observable<T>{
         @Override
         public void onComplete() {
             observer.onComplete();
+        }
+
+        @Override
+        public void dispose() {
+
+        }
+
+        @Override
+        public boolean isDisposed() {
+            return false;
         }
     }
 }

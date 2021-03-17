@@ -1,10 +1,7 @@
 package com.example.tengfei.rxjava
 
 import android.util.Log
-import com.example.rxjava.Observable
-import com.example.rxjava.ObservableEmitter
-import com.example.rxjava.ObservableOnSubscribe
-import com.example.rxjava.Observer
+import com.example.rxjava.*
 
 class RxJavaTest {
 
@@ -25,7 +22,7 @@ class RxJavaTest {
 
         //创建观察者对象
         val observer: Observer<String> = (object : Observer<String> {
-            override fun onSubscribe() {
+            override fun onSubscribe(disposable: Disposable) {
                 Log.i(tag,"onSubscribe   ")
             }
 
