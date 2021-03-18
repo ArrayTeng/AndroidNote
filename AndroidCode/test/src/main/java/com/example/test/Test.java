@@ -8,6 +8,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class Test {
@@ -18,6 +19,11 @@ public class Test {
         Observable.create(new ObservableOnSubscribe<String>() {
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
 
+            }
+        }).map(new Function<String, String>() {
+            @NonNull
+            public String apply(@NonNull String s) throws Exception {
+                return "s";
             }
         }).subscribeOn(Schedulers.io())//ObservableCreate执行subscribeOn，将source替换为了ObservableCreate 返回 ObservableSubscribeOn
                 //ObservableSubscribeOn.observeOn，将source替换为了 ObservableSubscribeOn  返回 ObservableObserveOn

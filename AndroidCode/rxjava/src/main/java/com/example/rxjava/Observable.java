@@ -5,9 +5,14 @@ package com.example.rxjava;
  */
 public abstract class Observable<T> implements  ObservableSource<T>{
 
-    //创建被观察者对象
+    //创建被观察者对象 - 创造型操作符
     public static <T> Observable<T> create(ObservableOnSubscribe<T> source){
         return new ObservableCreate<T>(source);
+    }
+
+    public <R> Observable<R> map(Function<? super T,? extends R> function){
+        //传入上一个被观察者
+        return new ObservableMap<>(this,function);
     }
 
 

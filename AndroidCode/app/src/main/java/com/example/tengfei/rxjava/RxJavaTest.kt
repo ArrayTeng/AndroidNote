@@ -10,14 +10,12 @@ class RxJavaTest {
     fun rxJavaTest() {
         //创建被观察者对象
         val observable: Observable<String> =
-            Observable.create(object : ObservableOnSubscribe<String> {
-                override fun subscribe(e: ObservableEmitter<String>?) {
-                    e?.onNext("嗨")
-                    e?.onNext("Hello")
-                    e?.onNext("World")
-                    e?.onError(Throwable("自定义异常"))
-                }
-            })
+            Observable.create { e ->
+                e?.onNext("嗨")
+                e?.onNext("Hello")
+                e?.onNext("World")
+                e?.onError(Throwable("自定义异常"))
+            }
 
 
         //创建观察者对象
