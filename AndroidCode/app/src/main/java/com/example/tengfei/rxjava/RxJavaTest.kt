@@ -2,6 +2,7 @@ package com.example.tengfei.rxjava
 
 import android.util.Log
 import com.example.rxjava.*
+import com.example.rxjava.Function
 
 class RxJavaTest {
 
@@ -14,34 +15,30 @@ class RxJavaTest {
                 e?.onNext("嗨")
                 e?.onNext("Hello")
                 e?.onNext("World")
-                e?.onError(Throwable("自定义异常"))
-            }
-
-
-        //创建观察者对象
-        val observer: Observer<String> = (object : Observer<String> {
-            override fun onSubscribe(disposable: Disposable) {
-                Log.i(tag,"onSubscribe   ")
-            }
-
-            override fun onNext(value: String?) {
-                Log.i(tag,"onNext   " + value)
 
             }
-
-            override fun onError(e: Throwable?) {
-                Log.i(tag,"onError   " + e.toString())
-
-            }
-
-            override fun onComplete() {
-                Log.i(tag,"onComplete   ")
-
-            }
-        })
 
         //观察者订阅被观察者
-        observable.subscribe(observer)
+        observable
+            .map(object :Function<String,Int>{
+                override fun apply(t: String?): Int {
+                    return 1024
+                }
+            })
+            .subscribe(object:Observer<Int>{
+                override fun onSubscribe(d: Disposable?) {
+                }
+
+                override fun onNext(value: Int?) {
+                   Log.i(tag,value.toString())
+                }
+
+                override fun onError(e: Throwable?) {
+                }
+
+                override fun onComplete() {
+                }
+            })
 
     }
 }

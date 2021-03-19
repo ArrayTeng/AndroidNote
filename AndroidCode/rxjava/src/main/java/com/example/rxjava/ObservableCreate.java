@@ -19,14 +19,6 @@ public class ObservableCreate<T> extends Observable<T> {
         //执行观察者对象的 onSubscribe 方法
         observer.onSubscribe(parent);
 
-        /*
-          这部分的代码对应
-                 Observable.create(new ObservableOnSubscribe<String>() {
-                     public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
-                           //here ObservableCreate 中的 ObservableOnSubscribe 被创建出来具体的执行在 subscribe 的时候
-                     }
-                 })
-         */
         try {
             source.subscribe(parent);
         } catch (Exception e) {
