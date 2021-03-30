@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bindService()//
+
 
       Observable.create(object :ObservableOnSubscribe<String>{
           override fun subscribe(e: ObservableEmitter<String>) {
