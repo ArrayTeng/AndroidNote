@@ -1,3 +1,4 @@
+include ':hook'
 include ':ipc'
 include ':test'
 include ':rxjava'
