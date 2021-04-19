@@ -2551,15 +2551,18 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
         }
 
         boolean handled = false;
+        //安全校验的过滤
         if (onFilterTouchEventForSecurity(ev)) {
             final int action = ev.getAction();
             final int actionMasked = action & MotionEvent.ACTION_MASK;
 
             // Handle an initial down.
+            //当当前时间是down事件的时候
             if (actionMasked == MotionEvent.ACTION_DOWN) {
                 // Throw away all previous state when starting a new touch gesture.
                 // The framework may have dropped the up or cancel event for the previous gesture
                 // due to an app switch, ANR, or some other state change.
+                //执行清除的操作，touchTarget之类的
                 cancelAndClearTouchTargets(ev);
                 resetTouchState();
             }
@@ -2622,6 +2625,7 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
                         final float y = ev.getY(actionIndex);
                         // Find a child that can receive the event.
                         // Scan children from front to back.
+                        //对子View排序
                         final ArrayList<View> preorderedList = buildTouchDispatchChildList();
                         final boolean customOrder = preorderedList == null
                                 && isChildrenDrawingOrderEnabled();
@@ -2832,7 +2836,7 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Cancels and clears all touch targets.
+     * Cancels and clears all touch targetsf
      */
     private void cancelAndClearTouchTargets(MotionEvent event) {
         if (mFirstTouchTarget != null) {
