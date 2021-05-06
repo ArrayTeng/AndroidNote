@@ -1,6 +1,5 @@
-include ':sourcecode'
+include ':ViewGroupEvent'
 include ':utils'
-include ':hook'
 include ':ipc'
 include ':test'
 include ':rxjava'

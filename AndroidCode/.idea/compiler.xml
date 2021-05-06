@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="AndroidCode.app" target="1.8" />
+      <module name="AndroidCode.ipc" target="1.8" />
+      <module name="AndroidCode.multidex" target="1.8" />
+      <module name="AndroidCode.rxjava" target="1.8" />
+      <module name="AndroidCode.test" target="1.8" />
+      <module name="AndroidCode.utils" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
