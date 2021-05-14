@@ -1,8 +1,0 @@
-include ':ViewGroupEvent'
-include ':utils'
-include ':ipc'
-include ':test'
-include ':rxjava'
-include ':multidex'
-include ':app'
-rootProject.name = "AndroidCode"
