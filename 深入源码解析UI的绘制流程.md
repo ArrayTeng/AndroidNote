@@ -1,6 +1,9 @@
 
 # 前言
 
+# setContentView
+
+
 # 扩展内容
 
 ## 如何正确获取View控件的宽高
