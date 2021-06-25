@@ -48,7 +48,9 @@
 
 点击 Generate new token 来获取你的 Github token，记住一定要找个地方保存好这个 token ，不然你忘记了只能重置这个 token ，我就因为忘记了又重新重置了一下，不过问题不大，获取 token 之后就可以填入到 PicGo 中啦， 接下来你在上传区选择 Github 图床就可以愉快的上传图片了。
 
+![image-20210625091842439](C:\Users\38073\AppData\Roaming\Typora\typora-user-images\image-20210625091842439.png)
 
+补充说明下，在你点击**Generate new token**按钮会跳转到上面的页面，Note你可以随便输入，下面的**Selecte scropes**按我图中所示选中，最后下拉到页面最低端点击**update token**按钮创建你的token。
 
 # PicGo 结合 Typora
 
