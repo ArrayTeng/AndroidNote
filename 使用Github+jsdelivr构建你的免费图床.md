@@ -2,7 +2,7 @@
 
 因为我的好同事（博客达人）在跟我一起搭档干活后只要有空闲时间就会去写博客总结最近的知识点，把我这个渣渣搞的有点小压力，在他的带动下我也开始慢慢的写博客，感谢涛哥带动了慵懒的我，不过在写博客的过程中发现如何维护自己的图床是个非常棘手的问题，开始我使用的是聚合图床，但是有限制，后来我看有小伙伴使用的是阿里云的对象存储服务OSS来做图床，可惜太费钱，我是搞了一个阿里云的图床，但是没有自己的域名，担心这么搞哪天就失效了，索性干脆放弃这个做法，最后还是选择了使用 Github 来做图床，本篇文章我就带大家手把手的搭建自己的 Github 图床搭配 Typora 提高自己的写作效率。
 
-
+> 2021年6月25日更新：新建token权限选择、解决上传图片失败的一个坑
 
 # 动手搭建Github图床
 
@@ -48,7 +48,7 @@
 
 点击 Generate new token 来获取你的 Github token，记住一定要找个地方保存好这个 token ，不然你忘记了只能重置这个 token ，我就因为忘记了又重新重置了一下，不过问题不大，获取 token 之后就可以填入到 PicGo 中啦， 接下来你在上传区选择 Github 图床就可以愉快的上传图片了。
 
-![image-20210625091842439](C:\Users\38073\AppData\Roaming\Typora\typora-user-images\image-20210625091842439.png)
+![image-20210625091842439](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210625091842439.png)
 
 补充说明下，在你点击**Generate new token**按钮会跳转到上面的页面，Note你可以随便输入，下面的**Selecte scropes**按我图中所示选中，最后下拉到页面最低端点击**update token**按钮创建你的token。
 
@@ -67,3 +67,13 @@
 ![image-20210618164518613](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210618164518613.png)
 
 结束，到此为止，你的高效图床工具已经完美的设置完毕，总体搭建时间不超过30分钟。
+
+# 图片上传失败的坑
+
+## 验证失败 <font color = red>Failed to fetch</font>
+
+![image-20210625093757262](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210625093757262.png)
+
+今天在使用Typora上传图片的时候直接失败了，后来百度了下发现是PicGo的监听端口问题，我在Typora上验证图片上传告诉我目前的端口是36677，于是我打开PicGo设置将监听端口设置为36677，也就是修改下图中的**设置监听端口**，设置完成后发现图片上传成功，
+
+![image-20210625093949818](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210625093949818.png)
