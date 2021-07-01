@@ -4,9 +4,15 @@
 
 # JVM的异常处理
 
+
+
 在java中异常处理分为两大基本流程，抛出异常和捕获异常，其中抛出异常又可以分为“显式抛出”以及“隐式抛出”，显式的执行体对应我们的应用程序，也就是手动“throw”的过程，将异常实例抛出来，隐私的执行主体对应JVM，也就是在JVM的运行过程中如果碰到一些无法继续执行的异常状态就自动抛出这个异常，比如说“空指针异常”、“数组下标越界”等，异常捕获其实就是我们写的 try catch 代码块。
 
-在Java中所有的异常都是Throwable或者Throwable的子类
+在Java中所有的异常都是Throwable或者Throwable的子类,Throwable有两个直接子类Error和Exception，Error表示不应该捕获的异常当程序触发Error的时候会直接终止Java虚拟机或者中断线程，Exception表示可以捕获并处理的异常，Exception中有一个特殊的子类RuntimeException，RuntimeException表示虽然抛出了异常但是依然在程序中可以补救，比如说数组下标越界，你可以try住它的异常不让程序crash，在java中RuntimeException和Error都属于非检查型的异常，其它的异常属于检查型异常，在开发中自定义的异常属于检查型异常，IDEA会显示的提示你去捕获这个异常。
+
+## 为什么说异常实例的构非常昂贵
+
+
 
 # JVM是如何实现反射的
 
