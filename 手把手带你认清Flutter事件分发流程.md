@@ -56,16 +56,50 @@ class GestureRecognizerFactoryWithHandlers<T extends GestureRecognizer> extends 
 
 ![image-20210728104854683](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210728104854683.png)
 
-大家在写 Flutter 应用的时候肯定有使用过 GestureDetector 包裹在需要处理点击事件的控件外层，在截图中截取了处理单击事件的操作，不过这里其实不是真正的处理事件而是绑定监听以及添加映射关系，GestureDetector  中封装了**代码1**中 回调函数，如果你在代码中调用了这些函数会继续执行到**代码2**中，**代码2**添加了映射关系，key为你具体的手势识别器，这里看的是 TapGestureRecognizer 单击手势识别器，而 value 则是手势识别器工厂，你会发现在它的构造函数中分别新建了 TapGestureRecognizer  对象以及调用了  _initializer 方法，在 _initializer 中将 GestureDetector  中定义的点击回调绑定给了 TapGestureRecognizer  也就是所谓的绑定监听，到这里你会发现 GestureDetector  也就是一个壳子，具体的手势执行操作在其内部对应着不同的手势识别器，前文只是拿 TapGestureRecognizer  举例子，实际上 GestureDetector  中封装了八种不同的手势识别器分别对应着：单击手势识别器（TapGestureRecognizer）、双击手势识别器（DoubleTapGestureRecognizer）、长按手势识别器（LongPressGestureRecognizer）、竖直拖拽手势识别器（VerticalDragGestureRecognizer）、水平拖拽手势识别器（HorizontalDragGestureRecognizer）、平移手势手势识别器（PanGestureRecognizer）、缩放手势识别器（ScaleGestureRecognizer）、按压手势识别器（ForcePressGestureRecognizer），GestureDetector  的内容就这么多，它作为一个包装类封装了八大常用的手势识别器，不同的手势操作交代给不同的手势识别器，将手势识别器与其工厂类建立映射关系并在 build 函数中将这个 map 集合（gestures）交给 RawGestureDetector。
+大家在写 Flutter 应用的时候肯定有使用过 GestureDetector 包裹在需要处理点击事件的控件外层，在截图中截取了处理单击事件的操作，不过这里其实不是真正的处理事件而是绑定监听以及添加映射关系，GestureDetector  中封装了**代码1**中 回调函数，如果你在代码中调用了这些函数会继续执行到**代码2**中，**代码2**添加了映射关系，key为你具体的手势识别器类型，这里看的是 TapGestureRecognizer 单击手势识别器，而 value 则是手势识别器工厂，你会发现在它的构造函数中分别新建了 TapGestureRecognizer  对象以及调用了  _initializer 方法，在 _initializer 中将 GestureDetector  中定义的点击回调绑定给了 TapGestureRecognizer  也就是所谓的绑定监听，到这里你会发现 GestureDetector  也就是一个壳子，具体的手势执行操作在其内部对应着不同的手势识别器，前文只是拿 TapGestureRecognizer  举例子，实际上 GestureDetector  中封装了八种不同的手势识别器分别对应着：单击手势识别器（TapGestureRecognizer）、双击手势识别器（DoubleTapGestureRecognizer）、长按手势识别器（LongPressGestureRecognizer）、竖直拖拽手势识别器（VerticalDragGestureRecognizer）、水平拖拽手势识别器（HorizontalDragGestureRecognizer）、平移手势手势识别器（PanGestureRecognizer）、缩放手势识别器（ScaleGestureRecognizer）、按压手势识别器（ForcePressGestureRecognizer），GestureDetector  的内容就这么多，它作为一个包装类封装了八大常用的手势识别器，不同的手势操作交代给不同的手势识别器，将手势识别器与其工厂类建立映射关系并在 build 函数中将这个 map 集合（gestures）交给 RawGestureDetector。
 
 # RawGestureDetector
 
 ![image-20210728135418298](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210728135418298.png)
 
-前文中提到过 GestureDetector 是一个壳子，那么 RawGestureDetector 就是参与了具体的手势相关逻辑的执行者，GestureDetector 的返回值就是 RawGestureDetector  ，并且前面的 gestures 对象也被传递给了它，RawGestureDetector  是一个 StatefulWidget ，一般情况下我们只有两种情况会需要使用到 StatefulWidget 。
+前文中提到过 GestureDetector 是一个壳子，那么 RawGestureDetector 就是参与了具体的手势相关逻辑的执行者，GestureDetector 的返回值就是 RawGestureDetector  ，并且前面的 gestures 对象也被传递给了它，RawGestureDetector  是一个 StatefulWidget ，一般情况下我们只有两种情况会需要使用到 StatefulWidget 
 
 - 当前的控件在某种情况下需要改变自身的状态
-- 需要借助 StatefulWidget 的生命周期函数完成
+- 需要借助 StatefulWidget 的生命周期函数完成变量在不同生命周期情况下的变更
+
+很明显我们现在需要关注 RawGestureDetector  的生命中周期不同状态执行了什么操作，而对于 StatefulWidget 只需要关注 State 类的流程就可以了。 
+
+![image-20210728190813012](https://cdn.jsdelivr.net/gh/ArrayTeng/resource@main/img/image-20210728190813012.png)
+
+RawGestureDetectorState 中维护了一个 _recognizers 的集合，value为 GestureRecognizer ，可见 _recognizers 的目的还是为了维护手势识别器，记得在前面的流程中将 gestures 传递到了 RawGestureDetector 中，而在 initState 中发现最终是交给 _syncAll 函数执行的，所以我们接下来重点看下 _syncAll  函数到底对 gestures 做了什么
+
+```dart
+  void _syncAll(Map<Type, GestureRecognizerFactory> gestures) {
+    //重新新建一个 oldRecognizers 变量，并且将 _recognizers 的值赋值给它
+    final Map<Type, GestureRecognizer> oldRecognizers = _recognizers;
+    //重新给 _recognizers 赋值为一个空集合
+    _recognizers = <Type, GestureRecognizer>{};
+     //遍历 gestures.keys 
+    for (final Type type in gestures.keys) {
+      //如果当前生命周期处于 initState 中 oldRecognizers[type]为null ，新建手势识别器并塞入到 _recognizers 集合中
+      _recognizers[type] = oldRecognizers[type] ?? gestures[type].constructor();
+      
+      gestures[type].initializer(_recognizers[type]);
+    }
+      //执行dispose执行销毁的操作
+    for (final Type type in oldRecognizers.keys) {
+      if (!_recognizers.containsKey(type))
+        oldRecognizers[type].dispose();
+    }
+  }
+```
+
+- 新建一个 oldRecognizers 变量，并且将 _recognizers 的值赋值给它
+- 重新给 _recognizers 赋值为一个空集合
+- 遍历 gestures.keys 获取所有的手势识别器类型，因为在 initState 函数中 oldRecognizers[type]  的值此刻为 null ，所以执行 gestures[type].constructor() 也是手势识别器工厂类的 constructor() 函数创建具体的手势识别器对象，建立 _recognizers[type] 的映射关系，同时执行工厂类的  initializer 函数传入手势识别器对象执行绑定监听的操作
+- 如果 oldRecognizers 包含 _recognizers 中不存在的类型就将 oldRecognizers 中的那个手势识别器销毁
+
+目前所讲的只是处于 initState 函数里，所以 oldRecognizers  和 _recognizers  都是空集合，但是 _syncAll 函数在
 
 # 参考资料
 
